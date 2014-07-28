@@ -1,0 +1,37 @@
+{
+  "name": "fooforms-membership",
+  "version": "0.0.1",
+  "description": "membership module for fooforms web app",
+  "keywords": [
+    "fooforms",
+    "nodejs",
+    "membership"
+  ],
+  "author": {
+    "name": "FooForms",
+    "email": "info@fooforms.com",
+    "url": "http://www.fooforms.com/"
+  },
+  "homepage": "http://www.fooforms.com/",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com/ruairitobrien/fooforms.git"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": ">= 1.0.0"
+  },
+  "dependencies": {
+    "mongodb": "1.3.x",
+    "mongoose": "3.8.x"
+  },
+  "devDependencies": {
+    "grunt": "*",
+    "mocha": "*",
+    "mockgoose": "*",
+    "should": "*"
+  },
+  "bundleDependencies": [],
+  "private": true,
+  "subdomain": "fooforms"
+}
