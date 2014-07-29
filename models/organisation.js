@@ -13,7 +13,7 @@ var organisationSchema = mongoose.Schema({
         index: true
     },
     // Organisation title for display purposes
-    name: {
+    title: {
         type: String
     },
     // Organisation website most likely
