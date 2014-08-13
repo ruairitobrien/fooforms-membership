@@ -16,6 +16,8 @@ mockgoose(mongoose);
 var Registration = require('../lib/registration');
 var Authentication = require('../lib/authentication');
 
+var User = require('../models/user')(mongoose);
+
 describe('Authentication', function () {
     var auth = {};
     var displayName = 'name';
@@ -25,18 +27,15 @@ describe('Authentication', function () {
 
     before(function (done) {
         mockgoose.reset();
-        var registration = new Registration();
-        auth = new Authentication();
+
+        var registration = new Registration(User);
+        auth = new Authentication(User);
         registration.register({email: email, displayName: displayName,
                 password: password, confirmPass: confirmPass},
             function (err, result) {
                 assert.ok(result.success);
                 done(err);
             });
-    });
-
-    after(function () {
-        mockgoose.reset();
     });
 
     describe('a valid login with displayName', function () {

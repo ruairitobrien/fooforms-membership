@@ -13,7 +13,7 @@ mongoose.modelSchemas = {};
 var mockgoose = require('mockgoose');
 mockgoose(mongoose);
 
-var User = require('../models/user');
+var User = require('../models/user')(mongoose);
 
 
 describe('User', function () {

@@ -17,7 +17,7 @@ var Membership = require('../index');
 
 describe('Membership', function () {
 
-    var membership = new Membership();
+    var membership = new Membership(mongoose);
 
     describe('authentication', function () {
         var newUser = {};

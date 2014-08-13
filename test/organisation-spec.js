@@ -13,7 +13,7 @@ mongoose.modelSchemas = {};
 var mockgoose = require('mockgoose');
 mockgoose(mongoose);
 
-var Organisation = require('../models/organisation');
+var Organisation = require('../models/organisation')(mongoose);
 
 describe('Organisation', function () {
     // Happy path

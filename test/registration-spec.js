@@ -15,6 +15,8 @@ mockgoose(mongoose);
 
 var Registration = require('../lib/registration');
 
+var User = require('../models/user')(mongoose);
+
 describe('Registration', function () {
 
     // Happy path
@@ -27,7 +29,7 @@ describe('Registration', function () {
 
         before(function (done) {
             mockgoose.reset();
-            var registration = new Registration();
+            var registration = new Registration(User);
             registration.register({email: email, displayName: displayName,
                     password: password, confirmPass: confirmPass},
                 function (err, result) {
@@ -72,7 +74,7 @@ describe('Registration', function () {
 
         before(function () {
             mockgoose.reset();
-            registration = new Registration();
+            registration = new Registration(User);
         });
 
         after(function () {
@@ -115,7 +117,7 @@ describe('Registration', function () {
 
         before(function (done) {
             mockgoose.reset();
-            var registration = new Registration();
+            var registration = new Registration(User);
             registration.register({email: email, displayName: displayName},
                 function (err, result) {
                     regResult = result;
@@ -147,7 +149,7 @@ describe('Registration', function () {
 
         before(function (done) {
             mockgoose.reset();
-            var registration = new Registration();
+            var registration = new Registration(User);
             registration.register({email: email, displayName: displayName,
                     password: password, confirmPass: confirmPass},
                 function (err, result) {
@@ -180,7 +182,7 @@ describe('Registration', function () {
 
         before(function (done) {
             mockgoose.reset();
-            var registration = new Registration();
+            var registration = new Registration(User);
             registration.register({email: email, displayName: displayName,
                     password: password, confirmPass: confirmPass},
                 function (err, result) {
@@ -221,7 +223,7 @@ describe('Registration', function () {
 
         before(function (done) {
             mockgoose.reset();
-            var registration = new Registration();
+            var registration = new Registration(User);
             registration.register({email: email, displayName: displayName,
                     password: password, confirmPass: confirmPass},
                 function (err, result) {
