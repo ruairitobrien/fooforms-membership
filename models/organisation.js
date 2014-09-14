@@ -55,7 +55,8 @@ module.exports = function (mongoose) {
             }
         ],
         created: Date,
-        lastModified: Date
+        lastModified: Date,
+        deleted: Boolean
     });
 
 

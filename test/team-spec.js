@@ -21,10 +21,11 @@ describe('Team', function () {
         var team = {};
 
         var name = 'team';
+        var organisation = ObjectId;
 
         before(function (done) {
             mockgoose.reset();
-            var testTeam = new Team({name: name});
+            var testTeam = new Team({name: name, organisation: organisation});
             testTeam.save(function (err, savedTeam) {
                 team = savedTeam;
                 done(err);
@@ -66,13 +67,14 @@ describe('Team', function () {
 
         var name = 'team';
         var description = 'cool team';
+        var organisation = ObjectId;
         var members = [ObjectId];
         var forms = [ObjectId];
         var permissionLevel = 'write';
 
         before(function (done) {
             mockgoose.reset();
-            var testTeam = new Team({name: name, description: description,
+            var testTeam = new Team({name: name, description: description, organisation: organisation,
                 members: members, forms: forms, permissionLevel: permissionLevel});
             testTeam.save(function (err, savedTeam) {
                 team = savedTeam;
@@ -103,10 +105,11 @@ describe('Team', function () {
 
     describe('initializing with no name', function () {
         var team = {};
+        var organisation = ObjectId;
 
         before(function () {
             mockgoose.reset();
-            team = new Team({});
+            team = new Team({organisation: organisation});
         });
 
         after(function () {
@@ -128,11 +131,12 @@ describe('Team', function () {
         var team = {};
 
         var name = 'team';
+        var organisation = ObjectId;
         var permissionLevel = 'bad';
 
         before(function () {
             mockgoose.reset();
-            team = new Team({name: name, permissionLevel: permissionLevel});
+            team = new Team({name: name, organisation: organisation, permissionLevel: permissionLevel});
         });
 
         after(function () {

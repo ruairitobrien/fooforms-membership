@@ -17,6 +17,8 @@ var Registration = require('../lib/registration');
 var Authentication = require('../lib/authentication');
 
 var User = require('../models/user')(mongoose);
+var Organisation = require('../models/organisation')(mongoose);
+var Team = require('../models/team')(mongoose);
 
 describe('Authentication', function () {
     var auth = {};
@@ -24,14 +26,15 @@ describe('Authentication', function () {
     var email = 'user@test.com';
     var password = 'pass';
     var confirmPass = 'pass';
+    var organisationName = 'myOrg';
 
     before(function (done) {
         mockgoose.reset();
 
-        var registration = new Registration(User);
+        var registration = new Registration(User, Organisation, Team);
         auth = new Authentication(User);
         registration.register({email: email, displayName: displayName,
-                password: password, confirmPass: confirmPass},
+                password: password, confirmPass: confirmPass, organisationName: organisationName},
             function (err, result) {
                 assert.ok(result.success);
                 done(err);

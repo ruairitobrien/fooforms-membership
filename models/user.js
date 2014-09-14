@@ -51,6 +51,12 @@ module.exports = function (mongoose) {
                 ref: 'Team'
             }
         ],
+        organisations: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Organisation'
+            }
+        ],
         // When the account was first created
         created: Date,
         // When the user last update their profile
@@ -78,7 +84,8 @@ module.exports = function (mongoose) {
         github: {},
         google: {},
         yahoo: {},
-        linkedin: {}
+        linkedin: {},
+        deleted: Boolean
     });
 
     userSchema.path('email').validate(function (email) {
@@ -101,13 +108,6 @@ module.exports = function (mongoose) {
         }
         return password && password.length;
     }, 'Password cannot be blank');
-
-    /**
-     * userSchema.path('teams').validate(function (teams) {
-    var minimumAllowedTeams = 1; // A user must be a member of at least one team
-    return teams.length >= minimumAllowedTeams;
-}, 'Error saving user. Must be a member of a team.');
-     */
 
     /**
      * Checks if a value is null or empty

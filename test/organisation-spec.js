@@ -76,7 +76,7 @@ describe('Organisation', function () {
         });
     });
 
-    describe('initialising organisation with some values realistic', function () {
+    describe('initialising organisation with some realistic values', function () {
         var organisation = {};
 
         var displayName = 'organisation';

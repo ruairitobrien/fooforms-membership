@@ -164,44 +164,6 @@ describe('User', function () {
         });
 
     });
-/**
-    describe('initializing a user with no team', function () {
-        var user = {};
-
-        var email = 'user@test.com';
-        var displayName = 'user';
-        var password = 'somecrappass';
-
-
-
-        beforeEach(function () {
-            mockgoose.reset();
-            user = new User({email: email, displayName: displayName, password: password});
-        });
-
-        after(function () {
-            mockgoose.reset();
-        });
-
-        it('throws an error when no team is saved', function (done) {
-            user.save(function (err, savedUser) {
-                should.exist(err);
-                should.not.exist(savedUser);
-                err.errors.teams.message.should.equal('Error saving user. Must be a member of a team.');
-                done();
-            });
-        });
-        it('throws an error if an empty team list is saved', function (done) {
-            user.teams = [];
-            user.save(function (err, savedUser) {
-                should.exist(err);
-                should.not.exist(savedUser);
-                err.errors.teams.message.should.equal('Error saving user. Must be a member of a team.');
-                done();
-            });
-
-        });
-    });*/
 
 });
 

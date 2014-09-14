@@ -9,11 +9,18 @@ module.exports = function (mongoose) {
         // Team name
         name: {
             type: String,
-            index: true,
-            required: true
+            required: true,
+            index: true
         },
         description: {
             type: String
+        },
+        photo: {
+            type: String
+        },
+        organisation: {
+            type: Schema.Types.ObjectId,
+            ref: 'Organisation'
         },
         // Members in this team
         members: [
@@ -33,11 +40,12 @@ module.exports = function (mongoose) {
             default: 'read'
         },
         created: Date,
-        lastModified: Date
+        lastModified: Date,
+        deleted: Boolean
     });
 
     teamSchema.path('permissionLevel').validate(function (value) {
-        return /read|write/i.test(value);
+        return /admin|read|write/i.test(value);
     }, '{VALUE} is an invalid permission level');
 
     /**
