@@ -67,10 +67,9 @@ module.exports = function (dbConnection) {
     try {
         Team = dbConnection.model('Team');
     } catch (err) {
-        console.log(err);
-    }
-    if(!Team) {
-        Team = dbConnection.model('Team', teamSchema);
+        if(!Team) {
+            Team = dbConnection.model('Team', teamSchema);
+        }
     }
     return Team;
 

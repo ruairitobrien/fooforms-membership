@@ -91,10 +91,9 @@ module.exports = function (dbConnection) {
     try {
         Organisation = dbConnection.model('Organisation');
     } catch(err) {
-        console.log(err);
-    }
-    if(!Organisation) {
-        Organisation = dbConnection.model('Organisation', organisationSchema);
+        if(!Organisation) {
+            Organisation = dbConnection.model('Organisation', organisationSchema);
+        }
     }
     return Organisation;
 };

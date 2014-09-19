@@ -167,10 +167,9 @@ module.exports = function (dbConnection) {
     try {
         User = dbConnection.model('User');
     } catch (err) {
-        console.log(err);
-    }
-    if(!User) {
-        User = dbConnection.model('User', userSchema);
+        if(!User) {
+            User = dbConnection.model('User', userSchema);
+        }
     }
     return User;
 };
