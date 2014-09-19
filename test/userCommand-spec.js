@@ -231,7 +231,7 @@ describe('User Commands', function () {
             mockgoose.reset();
         });
 
-        it('successfully updates a user mongoose onject', function (done) {
+        it('successfully updates a user mongoose object', function (done) {
             user.teams = [ObjectId, ObjectId];
             userCommand.updateUser(user, function (err, result) {
                 (result.success).should.equal(true);

@@ -6,6 +6,7 @@ var assert = require('assert');
 var Registration = require('./lib/registration');
 var Authentication = require('./lib/authentication');
 var UserQuery = require('./lib/userQuery');
+var UserCommand = require('./lib/userCommand');
 var OrganisationQuery = require('./lib/organisationQuery');
 var OrganisationCommand = require('./lib/organisationCommand');
 var TeamQuery = require('./lib/teamQuery');
@@ -77,6 +78,14 @@ var Membership = function (dbConnection) {
         });
 
         registration.register(details, next);
+    };
+
+    /*******************************************************************************************************************
+     * USER COMMANDS
+     */
+    self.updateUser = function (args, next) {
+        var userCommand = new UserCommand(User);
+        userCommand.updateUser(args, next);
     };
 
     /*******************************************************************************************************************

@@ -228,6 +228,53 @@ describe('Membership', function () {
 
     });
 
+    describe('user commands', function () {
+        var newUser = {};
+        var displayName = 'user';
+        var email = 'user@email.com';
+        var password = 'somegreatpassword';
+        var confirmPass = 'somegreatpassword';
+
+        var organisationName = 'myOrg';
+        var user = {};
+
+        before(function (done) {
+            mockgoose.reset();
+            membership.register({displayName: displayName, email: email, password: password, confirmPass: confirmPass, organisationName: organisationName}, function (err, result) {
+                user = result.user;
+                assert.ok(result.success, 'error in registration');
+                done();
+            });
+        });
+
+        it('successfully updates a user mongoose object', function (done) {
+            user.teams = [ObjectId, ObjectId];
+            membership.updateUser(user, function (err, result) {
+                (result.success).should.equal(true);
+                should.exist(result.user);
+                result.user.teams.length.should.equal(2);
+                done(err);
+            });
+        });
+
+        it('successfully updates a user with valid values', function (done) {
+            membership.updateUser({displayName: displayName, teams: [ObjectId, ObjectId]}, function (err, result) {
+                (result.success).should.equal(true);
+                should.exist(result.user);
+                result.user.teams.length.should.equal(2);
+                done(err);
+            });
+        });
+
+        it('fails to update a user that does not exist', function (done) {
+            membership.updateUser({teams: [ObjectId, ObjectId]}, function (err, result) {
+                (result.success).should.equal(false);
+                should.not.exist(result.user);
+                done(err);
+            });
+        });
+    });
+
     describe('team commands', function () {
         var name = 'aTeam';
         var organisation = ObjectId;
