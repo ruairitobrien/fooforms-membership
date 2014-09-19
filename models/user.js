@@ -163,7 +163,12 @@ userSchema.statics.searchByDisplayName = function (searchText, next) {
 };
 
 module.exports = function (dbConnection) {
-    var User = dbConnection.model('User');
+    var User;
+    try {
+        User = dbConnection.model('User');
+    } catch (err) {
+        console.log(err);
+    }
     if(!User) {
         User = dbConnection.model('User', userSchema);
     }

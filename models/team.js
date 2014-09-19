@@ -63,7 +63,12 @@ teamSchema.pre('save', function (next) {
 });
 
 module.exports = function (dbConnection) {
-    var Team = dbConnection.model('Team');
+    var Team ;
+    try {
+        Team = dbConnection.model('Team');
+    } catch (err) {
+        console.log(err);
+    }
     if(!Team) {
         Team = dbConnection.model('Team', teamSchema);
     }

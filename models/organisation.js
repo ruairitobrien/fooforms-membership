@@ -87,7 +87,12 @@ organisationSchema.statics.searchByDisplayName = function (searchText, next) {
 };
 
 module.exports = function (dbConnection) {
-    var Organisation = dbConnection.model('Organisation');
+    var Organisation;
+    try {
+        Organisation = dbConnection.model('Organisation');
+    } catch(err) {
+        console.log(err);
+    }
     if(!Organisation) {
         Organisation = dbConnection.model('Organisation', organisationSchema);
     }
