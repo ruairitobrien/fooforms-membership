@@ -6,16 +6,14 @@ var should = require('should');
 var assert = require('assert');
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId();
-// Nasty hack for testing with mocha -w ... see: https://github.com/LearnBoost/mongoose/issues/1251
-mongoose.models = {};
-mongoose.modelSchemas = {};
 
 var mockgoose = require('mockgoose');
 mockgoose(mongoose);
+var db = mongoose.connection;
 
-var Organisation = require('../models/organisation')(mongoose);
-var Team = require('../models/team')(mongoose);
-var User = require('../models/user')(mongoose);
+var Organisation = require('../models/organisation')(db);
+var Team = require('../models/team')(db);
+var User = require('../models/user')(db);
 var UserCommand = require('../lib/userCommand');
 var UserQuery = require('../lib/userQuery');
 

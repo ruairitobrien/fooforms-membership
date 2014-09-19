@@ -11,13 +11,13 @@ var OrganisationCommand = require('./lib/organisationCommand');
 var TeamQuery = require('./lib/teamQuery');
 var TeamCommand = require('./lib/teamCommand');
 
-var Membership = function (mongoose) {
+var Membership = function (dbConnection) {
     Emitter.call(this);
     var self = this;
 
-    var User = require('./models/user')(mongoose);
-    var Organisation = require('./models/organisation')(mongoose);
-    var Team = require('./models/team')(mongoose);
+    var User = require('./models/user')(dbConnection);
+    var Organisation = require('./models/organisation')(dbConnection);
+    var Team = require('./models/team')(dbConnection);
 
     var _userQuery = new UserQuery(User);
     var _organisationQuery = new OrganisationQuery(Organisation);
