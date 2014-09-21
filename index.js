@@ -43,6 +43,7 @@ var Membership = function (dbConnection) {
 
 
     /**
+     * Verify a users username and password
      *
      * @param username
      * @param password
@@ -62,6 +63,7 @@ var Membership = function (dbConnection) {
     };
 
     /**
+     * Register a new User and Organisation
      *
      * @param details
      * @param next

@@ -35,7 +35,7 @@ var organisationSchema = mongoose.Schema({
     photo: {
         type: String
     },
-    // List of folders owned by this organisation
+    // List of forms owned by this organisation
     forms: [
         {
             type: Schema.Types.ObjectId,
