@@ -9,9 +9,9 @@ var authTypes = ['github', 'twitter', 'facebook', 'google', 'yahoo', 'linkedin']
 var userSchema = mongoose.Schema({
     // Users full name
     name: {
-        familyName: String,
-        givenName: String,
-        middleName: String
+        familyName: {type: String},
+        givenName: {type: String},
+        middleName: {type: String}
     },
     // Users unique display/user name
     displayName: {
