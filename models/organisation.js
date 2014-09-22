@@ -18,7 +18,7 @@ var organisationSchema = mongoose.Schema({
         type: String
     },
     // Organisation website most likely
-    domain: {
+    orgDomain: {
         type: String
     },
     // The email address to send invoices to

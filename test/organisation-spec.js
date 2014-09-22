@@ -57,8 +57,8 @@ describe('Organisation', function () {
         it('has no title', function () {
             should.not.exist(organisation.title);
         });
-        it('has no domain', function () {
-            should.not.exist(organisation.domain);
+        it('has no orgDomain', function () {
+            should.not.exist(organisation.orgDomain);
         });
         it('has no email', function () {
             should.not.exist(organisation.email);
@@ -81,7 +81,7 @@ describe('Organisation', function () {
         var billingEmail = 'org@test.com';
         var owners = [ObjectId];
         var title = 'org name';
-        var domain = 'org.domain.com';
+        var domain = 'org.orgDomain.com';
         var email = 'org@email.com';
         var photo = 'http:/photo/aphoto';
         var forms = [ObjectId, ObjectId];
@@ -91,7 +91,7 @@ describe('Organisation', function () {
             mockgoose.reset();
             var testOrganisation = new Organisation({displayName: displayName,
                 billingEmail: billingEmail, owners: owners, title: title,
-                domain: domain, email: email, photo: photo, forms: forms,
+                orgDomain: domain, email: email, photo: photo, forms: forms,
                 teams: teams});
             testOrganisation.save(function (err, savedOrganisation) {
                 organisation = savedOrganisation;
@@ -123,8 +123,8 @@ describe('Organisation', function () {
         it('has the  title: ' + title, function () {
             organisation.title.should.equal(title);
         });
-        it('has the domain: ' + domain, function () {
-            organisation.domain.should.equal(domain);
+        it('has the orgDomain: ' + domain, function () {
+            organisation.orgDomain.should.equal(domain);
         });
         it('has the email: ' + email, function () {
             organisation.email.should.equal(email);

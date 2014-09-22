@@ -62,7 +62,7 @@ describe('Organisation Commands', function () {
         var billingEmail = 'org@test.com';
         var owners = ObjectId;
         var title = 'org name';
-        var domain = 'org.domain.com';
+        var domain = 'org.orgDomain.com';
         var email = 'org@email.com';
         var photo = 'http:/photo/aphoto';
         var forms = [ObjectId, ObjectId];
@@ -72,7 +72,7 @@ describe('Organisation Commands', function () {
             mockgoose.reset();
             var testOrganisation = new Organisation({
                 displayName: displayName, billingEmail: billingEmail, owners: owners, title: title,
-                domain: domain, email: email, photo: photo, forms: forms, teams: teams
+                orgDomain: domain, email: email, photo: photo, forms: forms, teams: teams
             });
             organisationCommand.createOrganisation(testOrganisation, function (err, result) {
                 organisation = result.organisation;
@@ -159,7 +159,7 @@ describe('Organisation Commands', function () {
         var billingEmail = 'org@test.com';
         var owners = ObjectId;
         var title = 'org name';
-        var domain = 'org.domain.com';
+        var domain = 'org.orgDomain.com';
         var email = 'org@email.com';
         var photo = 'http:/photo/aphoto';
         var forms = [ObjectId, ObjectId];
@@ -169,7 +169,7 @@ describe('Organisation Commands', function () {
         var billingEmailUpdated = 'updatedorg@test.com';
         var ownersUpdated = ObjectId;
         var titleUpdated = 'updated org name';
-        var domainUpdated = 'updatedorg.domain.com';
+        var domainUpdated = 'updatedorg.orgDomain.com';
         var emailUpdated = 'updatedorg@email.com';
         var photoUpdated = 'http:/photo/aphoto_updated';
         var formsUpdated = [ObjectId, ObjectId, ObjectId, ObjectId];
@@ -179,7 +179,7 @@ describe('Organisation Commands', function () {
             mockgoose.reset();
             var testOrganisation = new Organisation({
                 displayName: displayName, billingEmail: billingEmail, owners: owners, title: title,
-                domain: domain, email: email, photo: photo, forms: forms, teams: teams
+                orgDomain: domain, email: email, photo: photo, forms: forms, teams: teams
             });
             organisationCommand.createOrganisation(testOrganisation, function (err, result) {
                 organisation = result.organisation;
@@ -196,7 +196,7 @@ describe('Organisation Commands', function () {
             organisation.billingEmail = billingEmailUpdated;
             organisation.owners = ownersUpdated;
             organisation.title = titleUpdated;
-            organisation.domain = domainUpdated;
+            organisation.orgDomain = domainUpdated;
             organisation.email = emailUpdated;
             organisation.photo = photoUpdated;
             organisation.forms = formsUpdated;
@@ -209,7 +209,7 @@ describe('Organisation Commands', function () {
                 result.organisation.billingEmail.should.equal(billingEmailUpdated);
                 result.organisation.owners.should.eql(ownersUpdated);
                 result.organisation.title.should.equal(titleUpdated);
-                result.organisation.domain.should.equal(domainUpdated);
+                result.organisation.orgDomain.should.equal(domainUpdated);
                 result.organisation.email.should.equal(emailUpdated);
                 result.organisation.photo.should.equal(photoUpdated);
                 result.organisation.forms.length.should.equal(formsUpdated.length);
@@ -225,7 +225,7 @@ describe('Organisation Commands', function () {
                 billingEmail: billingEmailUpdated,
                 owners: ownersUpdated,
                 title: titleUpdated,
-                domain: domainUpdated,
+                orgDomain: domainUpdated,
                 email: emailUpdated,
                 photo: photoUpdated,
                 forms: formsUpdated,
@@ -239,7 +239,7 @@ describe('Organisation Commands', function () {
                 result.organisation.billingEmail.should.equal(billingEmailUpdated);
                 result.organisation.owners.should.eql(ownersUpdated);
                 result.organisation.title.should.equal(titleUpdated);
-                result.organisation.domain.should.equal(domainUpdated);
+                result.organisation.orgDomain.should.equal(domainUpdated);
                 result.organisation.email.should.equal(emailUpdated);
                 result.organisation.photo.should.equal(photoUpdated);
                 result.organisation.forms.length.should.equal(formsUpdated.length);

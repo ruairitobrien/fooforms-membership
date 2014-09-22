@@ -415,7 +415,7 @@ describe('Membership', function () {
             var billingEmailUpdated = 'updatedorg@test.com';
             var ownersUpdated = ObjectId;
             var titleUpdated = 'updated org name';
-            var domainUpdated = 'updatedorg.domain.com';
+            var domainUpdated = 'updatedorg.orgDomain.com';
             var emailUpdated = 'updatedorg@email.com';
             var photoUpdated = 'http:/photo/aphoto_updated';
             var formsUpdated = [ObjectId, ObjectId, ObjectId];
@@ -427,7 +427,7 @@ describe('Membership', function () {
                 billingEmail: billingEmailUpdated,
                 owners: ownersUpdated,
                 title: titleUpdated,
-                domain: domainUpdated,
+                orgDomain: domainUpdated,
                 email: emailUpdated,
                 photo: photoUpdated,
                 forms: formsUpdated,
@@ -441,7 +441,7 @@ describe('Membership', function () {
                 result.organisation.billingEmail.should.equal(billingEmailUpdated);
                 result.organisation.owners.should.eql(ownersUpdated);
                 result.organisation.title.should.equal(titleUpdated);
-                result.organisation.domain.should.equal(domainUpdated);
+                result.organisation.orgDomain.should.equal(domainUpdated);
                 result.organisation.email.should.equal(emailUpdated);
                 result.organisation.photo.should.equal(photoUpdated);
                 result.organisation.forms.length.should.equal(formsUpdated.length);

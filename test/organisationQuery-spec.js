@@ -21,7 +21,7 @@ var compareOrganisations = function (org1, org2) {
     org1.billingEmail.should.equal(org2.billingEmail);
     org1.owners.should.eql(org2.owners);
     org1.title.should.equal(org2.title);
-    org1.domain.should.equal(org2.domain);
+    org1.orgDomain.should.equal(org2.orgDomain);
     org1.email.should.equal(org2.email);
     org1.photo.should.equal(org2.photo);
     org1.forms.length.should.equal(org2.forms.length);
@@ -42,7 +42,7 @@ describe('Organisation Queries', function () {
         var billingEmail = 'org@test.com';
         var owners = ObjectId;
         var title = 'org name';
-        var domain = 'org.domain.com';
+        var domain = 'org.orgDomain.com';
         var email = 'org@email.com';
         var photo = 'http:/photo/aphoto';
         var forms = [ObjectId, ObjectId];
@@ -55,7 +55,7 @@ describe('Organisation Queries', function () {
             mockgoose.reset();
             var testOrganisation = new Organisation({
                 displayName: displayName, billingEmail: billingEmail, owners: owners, title: title,
-                domain: domain, email: email, photo: photo, forms: forms, teams: teams
+                orgDomain: domain, email: email, photo: photo, forms: forms, teams: teams
             });
             organisationCommand.createOrganisation(testOrganisation, function (err, result) {
                 organisation = result.organisation;
@@ -117,7 +117,7 @@ describe('Organisation Queries', function () {
         var billingEmail = 'org@test.com';
         var owners = ObjectId;
         var title = 'org name';
-        var domain = 'org.domain.com';
+        var domain = 'org.orgDomain.com';
         var email = 'org@email.com';
         var photo = 'http:/photo/aphoto';
         var forms = [ObjectId, ObjectId];
@@ -128,7 +128,7 @@ describe('Organisation Queries', function () {
             mockgoose.reset();
             var testOrganisation = new Organisation({
                 displayName: displayName, billingEmail: billingEmail, owners: owners, title: title,
-                domain: domain, email: email, photo: photo, forms: forms, teams: teams
+                orgDomain: domain, email: email, photo: photo, forms: forms, teams: teams
             });
             organisationCommand.createOrganisation(testOrganisation, function (err, result) {
                 organisation = result.organisation;
@@ -153,7 +153,7 @@ describe('Organisation Queries', function () {
                 billingEmail: 'orgA@org.org',
                 owners: ObjectId,
                 title: 'Org A',
-                domain: 'domainA',
+                orgDomain: 'domainA',
                 email: 'emailA@email.com',
                 photo: 'somephotourlA',
                 forms: [ObjectId, ObjectId],
@@ -164,7 +164,7 @@ describe('Organisation Queries', function () {
                 billingEmail: 'orgB@org.org',
                 owners: ObjectId,
                 title: 'Org B',
-                domain: 'domainB',
+                orgDomain: 'domainB',
                 email: 'emailB@email.com',
                 photo: 'somephotourlB',
                 forms: [ObjectId, ObjectId, ObjectId],
@@ -175,7 +175,7 @@ describe('Organisation Queries', function () {
                 billingEmail: 'orgC@org.org',
                 owners: ObjectId,
                 title: 'Org C',
-                domain: 'domainC',
+                orgDomain: 'domainC',
                 email: 'emailC@email.com',
                 photo: 'somephotourlC',
                 forms: [],
