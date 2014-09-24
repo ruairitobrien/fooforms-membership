@@ -86,7 +86,10 @@ var userSchema = mongoose.Schema({
     google: {},
     yahoo: {},
     linkedin: {},
-    deleted: Boolean
+    deleted: {
+        type: Boolean,
+        default: false
+    }
 });
 
 userSchema.path('email').validate(function (email) {

@@ -41,7 +41,10 @@ var teamSchema = new Schema({
     },
     created: Date,
     lastModified: Date,
-    deleted: Boolean
+    deleted: {
+        type: Boolean,
+        default: false
+    }
 });
 
 teamSchema.path('permissionLevel').validate(function (value) {

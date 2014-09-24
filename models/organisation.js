@@ -57,7 +57,10 @@ var organisationSchema = mongoose.Schema({
     ],
     created: Date,
     lastModified: Date,
-    deleted: Boolean
+    deleted: {
+        type: Boolean,
+        default: false
+    }
 });
 
 
