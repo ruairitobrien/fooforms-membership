@@ -37,7 +37,7 @@ describe('Team Queries', function () {
 
         before(function (done) {
             mockgoose.reset();
-            var testTeam = new Team({name: name,
+            var testTeam = new Team({displayName: name,
                 description: description, organisation: organisation, members: members, forms: forms, permissionLevel: permissionLevel});
             teamCommand.createTeam(testTeam, function (err, result) {
                 team = result.team;
@@ -88,15 +88,15 @@ describe('Team Queries', function () {
             mockgoose.reset();
 
             var testTeamA = {
-                name: 'teamA',
+                displayName: 'teamA',
                 organisation: organisationId
             };
             var testTeamB = {
-                name: 'teamB',
+                displayName: 'teamB',
                 organisation: organisationId
             };
             var testTeamC = {
-                name: 'teamC',
+                displayName: 'teamC',
                 organisation: organisationId
             };
 

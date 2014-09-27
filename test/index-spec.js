@@ -283,7 +283,7 @@ describe('Membership', function () {
 
         beforeEach(function (done) {
             mockgoose.reset();
-            var testTeam = {name: name, organisation: organisation};
+            var testTeam = {displayName: name, organisation: organisation};
             membership.createTeam(testTeam, function (err, result) {
                 result.success.should.equal(true);
                 team = result.team;
@@ -297,10 +297,10 @@ describe('Membership', function () {
 
         it('updates a team', function (done) {
             var newName = 'newName';
-            team.name = newName;
+            team.displayName = newName;
             membership.updateTeam(team, function (err, result) {
                 result.success.should.equal(true);
-                result.team.name.should.equal(newName);
+                result.team.displayName.should.equal(newName);
                 result.team.organisation.should.eql(organisation);
                 done(err);
             });
@@ -328,7 +328,7 @@ describe('Membership', function () {
 
         before(function (done) {
             mockgoose.reset();
-            var testTeam = {name: name, organisation: organisation};
+            var testTeam = {displayName: name, organisation: organisation};
             membership.createTeam(testTeam, function (err, result) {
                 result.success.should.equal(true);
                 team = result.team;

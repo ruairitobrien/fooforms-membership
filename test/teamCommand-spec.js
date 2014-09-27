@@ -29,7 +29,7 @@ describe('Team Commands', function () {
 
         before(function (done) {
             mockgoose.reset();
-            var testTeam = {name: name, organisation: organisation};
+            var testTeam = {displayName: name, organisation: organisation};
             teamCommand.createTeam(testTeam, function (err, result) {
                 team = result.team;
                 done(err);
@@ -40,8 +40,8 @@ describe('Team Commands', function () {
             mockgoose.reset();
         });
 
-        it('name is ' + name, function () {
-            team.name.should.equal(name);
+        it('displayName is ' + name, function () {
+            team.displayName.should.equal(name);
         });
         it('has no forms', function () {
             team.forms.length.should.equal(0);
@@ -72,7 +72,7 @@ describe('Team Commands', function () {
 
         before(function (done) {
             mockgoose.reset();
-            var testTeam = new Team({name: name,
+            var testTeam = new Team({displayName: name,
                 description: description, organisation: organisation, members: members, forms: forms, permissionLevel: permissionLevel});
             teamCommand.createTeam(testTeam, function (err, result) {
                 team = result.team;
@@ -84,8 +84,8 @@ describe('Team Commands', function () {
             mockgoose.reset();
         });
 
-        it('has the name ' + name, function () {
-            team.name.should.equal(name);
+        it('has the displayName ' + name, function () {
+            team.displayName.should.equal(name);
         });
         it('has the description ' + description, function () {
             team.description.should.equal(description);
@@ -96,20 +96,20 @@ describe('Team Commands', function () {
 
     });
 
-    describe('initializing team with no name', function () {
+    describe('initializing team with no displayName', function () {
         var team = {};
         var organisation = ObjectId;
 
         beforeEach(function () {
             mockgoose.reset();
-            team = new Team({name: null, organisation: organisation});
+            team = new Team({displayName: null, organisation: organisation});
         });
 
         after(function () {
             mockgoose.reset();
         });
 
-        it('throws an error on save when no name provided', function (done) {
+        it('throws an error on save when no displayName provided', function (done) {
             team.save(function (err, savedTeam) {
                 should.exist(err);
                 should.not.exist(savedTeam);
@@ -133,7 +133,7 @@ describe('Team Commands', function () {
 
         before(function (done) {
             mockgoose.reset();
-            var testTeam = new Team({name: name,
+            var testTeam = new Team({displayName: name,
                 description: description, organisation: organisation, members: members, forms: forms, permissionLevel: permissionLevel});
             teamCommand.createTeam(testTeam, function (err, result) {
                 team = result.team;
@@ -178,7 +178,7 @@ describe('Team Commands', function () {
 
         beforeEach(function (done) {
             mockgoose.reset();
-            var testTeam = new Team({name: name,
+            var testTeam = new Team({displayName: name,
                 description: description, organisation: organisation, members: members, forms: forms, permissionLevel: permissionLevel});
             teamCommand.createTeam(testTeam, function (err, result) {
                 team = result.team;
@@ -195,7 +195,7 @@ describe('Team Commands', function () {
             teamCommand.updateTeam(team, function (err, result) {
                 (result.success).should.equal(true);
                 should.exist(result.team);
-                result.team.name.should.equal(name);
+                result.team.displayName.should.equal(name);
                 result.team.permissionLevel.should.equal('read');
                 done(err);
             });
@@ -205,7 +205,7 @@ describe('Team Commands', function () {
             teamCommand.updateTeam({_id: team._id, permissionLevel: 'read'}, function (err, result) {
                 (result.success).should.equal(true);
                 should.exist(result.team);
-                result.team.name.should.equal(name);
+                result.team.displayName.should.equal(name);
                 result.team.permissionLevel.should.equal('read');
                 done(err);
             });

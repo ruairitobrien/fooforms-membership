@@ -23,7 +23,7 @@ describe('Team', function () {
 
         before(function (done) {
             mockgoose.reset();
-            var testTeam = new Team({name: name, organisation: organisation});
+            var testTeam = new Team({displayName: name, organisation: organisation});
             testTeam.save(function (err, savedTeam) {
                 team = savedTeam;
                 done(err);
@@ -34,8 +34,8 @@ describe('Team', function () {
             mockgoose.reset();
         });
 
-        it('name is ' + name, function () {
-           team.name.should.equal(name);
+        it('displayName is ' + name, function () {
+           team.displayName.should.equal(name);
         });
         it('has no description', function () {
             should.not.exist(team.description);
@@ -64,6 +64,7 @@ describe('Team', function () {
         var team = {};
 
         var name = 'team';
+        var title = 'Team';
         var description = 'cool team';
         var organisation = ObjectId;
         var members = [ObjectId];
@@ -72,7 +73,7 @@ describe('Team', function () {
 
         before(function (done) {
             mockgoose.reset();
-            var testTeam = new Team({name: name, description: description, organisation: organisation,
+            var testTeam = new Team({displayName: name, title: title, description: description, organisation: organisation,
                 members: members, forms: forms, permissionLevel: permissionLevel});
             testTeam.save(function (err, savedTeam) {
                 team = savedTeam;
@@ -84,8 +85,11 @@ describe('Team', function () {
             mockgoose.reset();
         });
 
-        it('name is ' + name, function () {
-            team.name.should.equal(name);
+        it('displayName is ' + name, function () {
+            team.displayName.should.equal(name);
+        });
+        it('title is ' + title, function () {
+            team.title.should.equal(title);
         });
         it('description is' + description, function () {
             team.description.should.equal(description);
@@ -101,7 +105,7 @@ describe('Team', function () {
         });
     });
 
-    describe('initializing with no name', function () {
+    describe('initializing with no displayName', function () {
         var team = {};
         var organisation = ObjectId;
 
@@ -118,8 +122,8 @@ describe('Team', function () {
             team.save(function (err, savedTeam) {
                 should.exist(err);
                 should.not.exist(savedTeam);
-                err.errors.name.path.should.equal('name');
-                err.errors.name.type.should.equal('required');
+                err.errors.displayName.path.should.equal('displayName');
+                err.errors.displayName.type.should.equal('required');
                 done();
             });
         });
@@ -134,7 +138,7 @@ describe('Team', function () {
 
         before(function () {
             mockgoose.reset();
-            team = new Team({name: name, organisation: organisation, permissionLevel: permissionLevel});
+            team = new Team({displayName: name, organisation: organisation, permissionLevel: permissionLevel});
         });
 
         after(function () {

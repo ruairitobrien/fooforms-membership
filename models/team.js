@@ -7,10 +7,13 @@ var Schema = mongoose.Schema;
 
 var teamSchema = new Schema({
     // Team name
-    name: {
+    displayName: {
         type: String,
         required: true,
         index: true
+    },
+    title: {
+        type: String
     },
     description: {
         type: String

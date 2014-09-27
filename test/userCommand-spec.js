@@ -52,9 +52,9 @@ describe('User Commands', function () {
 
         it('has no name', function () {
             user.name.should.have.properties('familyName', 'givenName', 'middleName');
-            should.not.exist(user.name.familyName);
-            should.not.exist(user.name.givenName);
-            should.not.exist(user.name.middleName);
+            should.not.exist(user.displayName.familyName);
+            should.not.exist(user.displayName.givenName);
+            should.not.exist(user.displayName.middleName);
         });
 
         it('has a password', function () {
