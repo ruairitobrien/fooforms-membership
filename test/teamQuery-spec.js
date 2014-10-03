@@ -29,7 +29,7 @@ describe('Team Queries', function () {
         var description = 'amazing team';
         var organisation = ObjectId;
         var members = [ObjectId, ObjectId, ObjectId];
-        var forms = [ObjectId, ObjectId];
+        var folders = [ObjectId, ObjectId];
         var permissionLevel = 'write';
 
         var invalidId = ObjectId;
@@ -38,7 +38,7 @@ describe('Team Queries', function () {
         before(function (done) {
             mockgoose.reset();
             var testTeam = new Team({displayName: name,
-                description: description, organisation: organisation, members: members, forms: forms, permissionLevel: permissionLevel});
+                description: description, organisation: organisation, members: members, folders: folders, permissionLevel: permissionLevel});
             teamCommand.createTeam(testTeam, function (err, result) {
                 team = result.team;
                 done(err);
@@ -59,7 +59,7 @@ describe('Team Queries', function () {
                 foundTeam.organisation.should.eql(organisation);
                 foundTeam.description.should.equal(description);
                 foundTeam.members.length.should.equal(members.length);
-                foundTeam.forms.length.should.equal(forms.length);
+                foundTeam.folders.length.should.equal(folders.length);
                 done(err);
             });
         });

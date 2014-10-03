@@ -43,8 +43,8 @@ describe('Team Commands', function () {
         it('displayName is ' + name, function () {
             team.displayName.should.equal(name);
         });
-        it('has no forms', function () {
-            team.forms.length.should.equal(0);
+        it('has no folders', function () {
+            team.folders.length.should.equal(0);
         });
         it('has no members', function () {
             team.members.length.should.equal(0);
@@ -66,14 +66,14 @@ describe('Team Commands', function () {
         var description = 'amazing team';
         var organisation = ObjectId;
         var members = [ObjectId, ObjectId, ObjectId];
-        var forms = [ObjectId, ObjectId];
+        var folders = [ObjectId, ObjectId];
         var permissionLevel = 'write';
 
 
         before(function (done) {
             mockgoose.reset();
             var testTeam = new Team({displayName: name,
-                description: description, organisation: organisation, members: members, forms: forms, permissionLevel: permissionLevel});
+                description: description, organisation: organisation, members: members, folders: folders, permissionLevel: permissionLevel});
             teamCommand.createTeam(testTeam, function (err, result) {
                 team = result.team;
                 done(err);
@@ -127,14 +127,14 @@ describe('Team Commands', function () {
         var description = 'amazing team';
         var organisation = ObjectId;
         var members = [ObjectId, ObjectId, ObjectId];
-        var forms = [ObjectId, ObjectId];
+        var folders = [ObjectId, ObjectId];
         var permissionLevel = 'write';
 
 
         before(function (done) {
             mockgoose.reset();
             var testTeam = new Team({displayName: name,
-                description: description, organisation: organisation, members: members, forms: forms, permissionLevel: permissionLevel});
+                description: description, organisation: organisation, members: members, folders: folders, permissionLevel: permissionLevel});
             teamCommand.createTeam(testTeam, function (err, result) {
                 team = result.team;
                 done(err);
@@ -173,13 +173,13 @@ describe('Team Commands', function () {
         var description = 'amazing team';
         var organisation = ObjectId;
         var members = [ObjectId, ObjectId, ObjectId];
-        var forms = [ObjectId, ObjectId];
+        var folders = [ObjectId, ObjectId];
         var permissionLevel = 'write';
 
         beforeEach(function (done) {
             mockgoose.reset();
             var testTeam = new Team({displayName: name,
-                description: description, organisation: organisation, members: members, forms: forms, permissionLevel: permissionLevel});
+                description: description, organisation: organisation, members: members, folders: folders, permissionLevel: permissionLevel});
             teamCommand.createTeam(testTeam, function (err, result) {
                 team = result.team;
                 done(err);

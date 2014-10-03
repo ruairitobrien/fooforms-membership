@@ -65,14 +65,14 @@ describe('Organisation Commands', function () {
         var domain = 'org.orgDomain.com';
         var email = 'org@email.com';
         var photo = 'http:/photo/aphoto';
-        var forms = [ObjectId, ObjectId];
+        var folders = [ObjectId, ObjectId];
         var teams = [ObjectId, ObjectId, ObjectId];
 
         before(function (done) {
             mockgoose.reset();
             var testOrganisation = new Organisation({
                 displayName: displayName, billingEmail: billingEmail, owners: owners, title: title,
-                orgDomain: domain, email: email, photo: photo, forms: forms, teams: teams
+                orgDomain: domain, email: email, photo: photo, folders: folders, teams: teams
             });
             organisationCommand.createOrganisation(testOrganisation, function (err, result) {
                 organisation = result.organisation;
@@ -87,8 +87,8 @@ describe('Organisation Commands', function () {
         it('has a photo', function () {
             organisation.photo.should.equal(photo);
         });
-        it('has ' + forms.length + ' forms', function () {
-            organisation.forms.length.should.equal(forms.length);
+        it('has ' + folders.length + ' folders', function () {
+            organisation.folders.length.should.equal(folders.length);
         });
         it('has ' + teams.length + ' teams', function () {
             organisation.teams.length.should.equal(teams.length);
@@ -162,7 +162,7 @@ describe('Organisation Commands', function () {
         var domain = 'org.orgDomain.com';
         var email = 'org@email.com';
         var photo = 'http:/photo/aphoto';
-        var forms = [ObjectId, ObjectId];
+        var folders = [ObjectId, ObjectId];
         var teams = [ObjectId, ObjectId, ObjectId];
 
         var displayNameUpdated = 'organisation_updated';
@@ -172,14 +172,14 @@ describe('Organisation Commands', function () {
         var domainUpdated = 'updatedorg.orgDomain.com';
         var emailUpdated = 'updatedorg@email.com';
         var photoUpdated = 'http:/photo/aphoto_updated';
-        var formsUpdated = [ObjectId, ObjectId, ObjectId, ObjectId];
+        var foldersUpdated = [ObjectId, ObjectId, ObjectId, ObjectId];
         var teamsUpdated = [ObjectId, ObjectId, ObjectId, ObjectId, ObjectId];
 
         beforeEach(function (done) {
             mockgoose.reset();
             var testOrganisation = new Organisation({
                 displayName: displayName, billingEmail: billingEmail, owners: owners, title: title,
-                orgDomain: domain, email: email, photo: photo, forms: forms, teams: teams
+                orgDomain: domain, email: email, photo: photo, folders: folders, teams: teams
             });
             organisationCommand.createOrganisation(testOrganisation, function (err, result) {
                 organisation = result.organisation;
@@ -199,7 +199,7 @@ describe('Organisation Commands', function () {
             organisation.orgDomain = domainUpdated;
             organisation.email = emailUpdated;
             organisation.photo = photoUpdated;
-            organisation.forms = formsUpdated;
+            organisation.folders = foldersUpdated;
             organisation.teams = teamsUpdated;
 
             organisationCommand.updateOrganisation(organisation, function (err, result) {
@@ -212,7 +212,7 @@ describe('Organisation Commands', function () {
                 result.organisation.orgDomain.should.equal(domainUpdated);
                 result.organisation.email.should.equal(emailUpdated);
                 result.organisation.photo.should.equal(photoUpdated);
-                result.organisation.forms.length.should.equal(formsUpdated.length);
+                result.organisation.folders.length.should.equal(foldersUpdated.length);
                 result.organisation.teams.length.should.equal(teamsUpdated.length);
                 done(err);
             });
@@ -228,7 +228,7 @@ describe('Organisation Commands', function () {
                 orgDomain: domainUpdated,
                 email: emailUpdated,
                 photo: photoUpdated,
-                forms: formsUpdated,
+                folders: foldersUpdated,
                 teams: teamsUpdated
             };
 
@@ -242,7 +242,7 @@ describe('Organisation Commands', function () {
                 result.organisation.orgDomain.should.equal(domainUpdated);
                 result.organisation.email.should.equal(emailUpdated);
                 result.organisation.photo.should.equal(photoUpdated);
-                result.organisation.forms.length.should.equal(formsUpdated.length);
+                result.organisation.folders.length.should.equal(foldersUpdated.length);
                 result.organisation.teams.length.should.equal(teamsUpdated.length);
                 done(err);
             });

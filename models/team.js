@@ -32,10 +32,10 @@ var teamSchema = new Schema({
             ref: 'User'
         }
     ],
-    forms: [
+    folders: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Form'
+            ref: 'Folder'
         }
     ],
     permissionLevel: {

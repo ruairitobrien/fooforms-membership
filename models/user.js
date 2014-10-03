@@ -39,10 +39,10 @@ var userSchema = mongoose.Schema({
         type: String
     },
     // List of forms that this User owns
-    forms: [
+    folders: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Form'
+            ref: 'Folder'
         }
     ],
     // List of teams the user is a member of

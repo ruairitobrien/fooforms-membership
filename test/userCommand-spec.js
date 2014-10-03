@@ -69,8 +69,8 @@ describe('User Commands', function () {
         it('has one team', function () {
             user.teams.length.should.equal(1);
         });
-        it('has no forms', function () {
-            user.forms.length.should.equal(0);
+        it('has no folders', function () {
+            user.folders.length.should.equal(0);
         });
         it('is not admin', function () {
             user.admin.should.equal(false);

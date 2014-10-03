@@ -43,8 +43,8 @@ describe('Team', function () {
         it('has no members', function () {
             team.members.length.should.equal(0);
         });
-        it('has no forms', function () {
-           team.forms.length.should.equal(0);
+        it('has no folders', function () {
+           team.folders.length.should.equal(0);
         });
         it('has default permission level of read', function () {
             team.permissionLevel.should.equal('read');
@@ -68,13 +68,13 @@ describe('Team', function () {
         var description = 'cool team';
         var organisation = ObjectId;
         var members = [ObjectId];
-        var forms = [ObjectId];
+        var folders = [ObjectId];
         var permissionLevel = 'write';
 
         before(function (done) {
             mockgoose.reset();
             var testTeam = new Team({displayName: name, title: title, description: description, organisation: organisation,
-                members: members, forms: forms, permissionLevel: permissionLevel});
+                members: members, folders: folders, permissionLevel: permissionLevel});
             testTeam.save(function (err, savedTeam) {
                 team = savedTeam;
                 done(err);
@@ -97,8 +97,8 @@ describe('Team', function () {
         it('has ' + members.length + ' members', function () {
            team.members.length.should.equal(members.length);
         });
-        it('has ' + forms.length + ' forms', function () {
-           team.forms.length.should.equal(forms.length);
+        it('has ' + folders.length + ' folders', function () {
+           team.folders.length.should.equal(folders.length);
         });
         it('has permission level of ' + permissionLevel, function () {
            team.permissionLevel.should.equal(permissionLevel);

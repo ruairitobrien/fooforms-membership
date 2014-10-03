@@ -66,8 +66,8 @@ describe('Organisation', function () {
         it('has no photo', function () {
             should.not.exist(organisation.photo);
         });
-        it('has no forms', function () {
-           organisation.forms.length.should.equal(0);
+        it('has no folders', function () {
+           organisation.folders.length.should.equal(0);
         });
         it('has no teams', function () {
            organisation.teams.length.should.equal(0);
@@ -84,14 +84,14 @@ describe('Organisation', function () {
         var domain = 'org.orgDomain.com';
         var email = 'org@email.com';
         var photo = 'http:/photo/aphoto';
-        var forms = [ObjectId, ObjectId];
+        var folders = [ObjectId, ObjectId];
         var teams = [ObjectId, ObjectId, ObjectId];
 
         before(function (done) {
             mockgoose.reset();
             var testOrganisation = new Organisation({displayName: displayName,
                 billingEmail: billingEmail, owners: owners, title: title,
-                orgDomain: domain, email: email, photo: photo, forms: forms,
+                orgDomain: domain, email: email, photo: photo, folders: folders,
                 teams: teams});
             testOrganisation.save(function (err, savedOrganisation) {
                 organisation = savedOrganisation;
@@ -132,8 +132,8 @@ describe('Organisation', function () {
         it('has the photo: ' + photo, function () {
             organisation.photo.should.equal(photo);
         });
-        it('has ' + forms.length + ' forms', function () {
-            organisation.forms.length.should.equal(forms.length);
+        it('has ' + folders.length + ' folders', function () {
+            organisation.folders.length.should.equal(folders.length);
         });
         it('has ' + teams.length + ' teams', function () {
             organisation.teams.length.should.equal(teams.length);

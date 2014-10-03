@@ -36,10 +36,10 @@ var organisationSchema = mongoose.Schema({
         type: String
     },
     // List of forms owned by this organisation
-    forms: [
+    folders: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Form'
+            ref: 'Folder'
         }
     ],
     // Creator is in this group by default but may allow addition of other users

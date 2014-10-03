@@ -418,7 +418,7 @@ describe('Membership', function () {
             var domainUpdated = 'updatedorg.orgDomain.com';
             var emailUpdated = 'updatedorg@email.com';
             var photoUpdated = 'http:/photo/aphoto_updated';
-            var formsUpdated = [ObjectId, ObjectId, ObjectId];
+            var foldersUpdated = [ObjectId, ObjectId, ObjectId];
             var teamsUpdated = [ObjectId, ObjectId, ObjectId, ObjectId];
 
             var customOrg = {
@@ -430,7 +430,7 @@ describe('Membership', function () {
                 orgDomain: domainUpdated,
                 email: emailUpdated,
                 photo: photoUpdated,
-                forms: formsUpdated,
+                folders: foldersUpdated,
                 teams: teamsUpdated
             };
 
@@ -444,7 +444,7 @@ describe('Membership', function () {
                 result.organisation.orgDomain.should.equal(domainUpdated);
                 result.organisation.email.should.equal(emailUpdated);
                 result.organisation.photo.should.equal(photoUpdated);
-                result.organisation.forms.length.should.equal(formsUpdated.length);
+                result.organisation.folders.length.should.equal(foldersUpdated.length);
                 result.organisation.teams.length.should.equal(teamsUpdated.length);
                 done(err);
             });
