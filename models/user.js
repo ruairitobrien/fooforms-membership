@@ -13,6 +13,9 @@ var userSchema = mongoose.Schema({
         givenName: {type: String},
         middleName: {type: String}
     },
+    screenName: {
+      type: String
+    },
     // Users unique display/user name
     displayName: {
         type: String,
