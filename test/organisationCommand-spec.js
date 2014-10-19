@@ -23,13 +23,14 @@ describe('Organisation Commands', function () {
 
         var displayName = 'organisation';
         var owners = ObjectId;
+        var members = ObjectId;
         var billingEmail = 'org@company.com';
 
         var organisation = {};
 
         before(function (done) {
             mockgoose.reset();
-            var testOrg = {owners: owners, displayName: displayName, billingEmail: billingEmail};
+            var testOrg = {owners: owners, members: members, displayName: displayName, billingEmail: billingEmail};
             organisationCommand.createOrganisation(testOrg, function (err, result) {
                 organisation = result.organisation;
                 done(err);
@@ -45,8 +46,11 @@ describe('Organisation Commands', function () {
         it('billing email is ' + billingEmail, function () {
             organisation.billingEmail.should.equal(billingEmail);
         });
-        it('has one owner', function () {
+        it('has owners team', function () {
             organisation.owners.should.eql(owners);
+        });
+        it('has members team', function () {
+            organisation.members.should.eql(members);
         });
         it('has no title', function () {
             should.not.exist(organisation.title);
@@ -61,6 +65,7 @@ describe('Organisation Commands', function () {
         var displayName = 'organisation';
         var billingEmail = 'org@test.com';
         var owners = ObjectId;
+        var members = ObjectId;
         var title = 'org name';
         var domain = 'org.orgDomain.com';
         var email = 'org@email.com';
@@ -71,7 +76,7 @@ describe('Organisation Commands', function () {
         before(function (done) {
             mockgoose.reset();
             var testOrganisation = new Organisation({
-                displayName: displayName, billingEmail: billingEmail, owners: owners, title: title,
+                displayName: displayName, billingEmail: billingEmail, owners: owners, members: members, title: title,
                 orgDomain: domain, email: email, photo: photo, folders: folders, teams: teams
             });
             organisationCommand.createOrganisation(testOrganisation, function (err, result) {
@@ -101,6 +106,7 @@ describe('Organisation Commands', function () {
 
         var displayName = 'organisation';
         var owners = ObjectId;
+        var members = ObjectId;
         var billingEmail = 'org@company.com';
 
         var organisation = {};
@@ -109,7 +115,7 @@ describe('Organisation Commands', function () {
 
         beforeEach(function (done) {
             mockgoose.reset();
-            var testOrg = {owners: owners, displayName: displayName, billingEmail: billingEmail};
+            var testOrg = {owners: owners, displayName: displayName, billingEmail: billingEmail, members: members};
             organisationCommand.createOrganisation(testOrg, function (err, result) {
                 organisation = result.organisation;
                 done(err);
@@ -158,6 +164,7 @@ describe('Organisation Commands', function () {
         var displayName = 'organisation';
         var billingEmail = 'org@test.com';
         var owners = ObjectId;
+        var members = ObjectId;
         var title = 'org name';
         var domain = 'org.orgDomain.com';
         var email = 'org@email.com';
@@ -179,7 +186,7 @@ describe('Organisation Commands', function () {
             mockgoose.reset();
             var testOrganisation = new Organisation({
                 displayName: displayName, billingEmail: billingEmail, owners: owners, title: title,
-                orgDomain: domain, email: email, photo: photo, folders: folders, teams: teams
+                orgDomain: domain, email: email, photo: photo, folders: folders, teams: teams, members: members
             });
             organisationCommand.createOrganisation(testOrganisation, function (err, result) {
                 organisation = result.organisation;

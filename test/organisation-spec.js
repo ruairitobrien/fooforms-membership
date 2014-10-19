@@ -20,13 +20,14 @@ describe('Organisation', function () {
 
         var displayName = 'organisation';
         var billingEmail = 'org@test.com';
-        var owners = [ObjectId];
+        var owners = ObjectId;
+        var members = ObjectId;
 
 
         before(function (done) {
             mockgoose.reset();
             var testOrganisation = new Organisation({displayName: displayName,
-                billingEmail: billingEmail, owners: owners});
+                billingEmail: billingEmail, owners: owners, members: members});
             testOrganisation.save(function (err, savedOrganisation) {
                 organisation = savedOrganisation;
                 done(err);
@@ -38,13 +39,18 @@ describe('Organisation', function () {
         });
 
         it('displayName is ' + displayName, function () {
-           organisation.displayName.should.equal(displayName);
+            organisation.displayName.should.equal(displayName);
         });
         it('billing email is ' + billingEmail, function () {
-           organisation.billingEmail.should.equal(billingEmail);
+            organisation.billingEmail.should.equal(billingEmail);
         });
         it('has owners', function () {
             should.exist(organisation.owners);
+            organisation.owners.should.eql(owners);
+        });
+        it('has members', function () {
+            should.exist(organisation.members);
+            organisation.members.should.eql(members);
         });
         it('has a created date', function () {
             organisation.created.should.be.instanceof(Date);
@@ -67,10 +73,10 @@ describe('Organisation', function () {
             should.not.exist(organisation.photo);
         });
         it('has no folders', function () {
-           organisation.folders.length.should.equal(0);
+            organisation.folders.length.should.equal(0);
         });
         it('has no teams', function () {
-           organisation.teams.length.should.equal(0);
+            organisation.teams.length.should.equal(0);
         });
     });
 
@@ -79,7 +85,8 @@ describe('Organisation', function () {
 
         var displayName = 'organisation';
         var billingEmail = 'org@test.com';
-        var owners = [ObjectId];
+        var owners = ObjectId;
+        var members = ObjectId;
         var title = 'org name';
         var domain = 'org.orgDomain.com';
         var email = 'org@email.com';
@@ -92,7 +99,7 @@ describe('Organisation', function () {
             var testOrganisation = new Organisation({displayName: displayName,
                 billingEmail: billingEmail, owners: owners, title: title,
                 orgDomain: domain, email: email, photo: photo, folders: folders,
-                teams: teams});
+                teams: teams, members: members});
             testOrganisation.save(function (err, savedOrganisation) {
                 organisation = savedOrganisation;
                 done(err);

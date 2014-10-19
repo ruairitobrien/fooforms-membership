@@ -74,6 +74,9 @@ describe('Registration', function () {
             should.exist(regResult.organisation.owners);
             regResult.user.teams[0].should.eql(regResult.organisation.owners);
         });
+        it('organisation has team called everyone by default', function () {
+           should.exist(regResult.organisation.members);
+        });
     });
 
     describe('an empty or null email', function () {

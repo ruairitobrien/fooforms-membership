@@ -48,6 +48,11 @@ var organisationSchema = mongoose.Schema({
         ref: 'Team',
         required: true
     },
+    members: {
+        type: Schema.Types.ObjectId,
+        ref: 'Team',
+        required: true
+    },
     // Teams collection to manage user groups
     teams: [
         {
@@ -93,8 +98,8 @@ module.exports = function (dbConnection) {
     var Organisation;
     try {
         Organisation = dbConnection.model('Organisation');
-    } catch(err) {
-        if(!Organisation) {
+    } catch (err) {
+        if (!Organisation) {
             Organisation = dbConnection.model('Organisation', organisationSchema);
         }
     }

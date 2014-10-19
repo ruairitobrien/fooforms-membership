@@ -41,6 +41,7 @@ describe('Organisation Queries', function () {
         var displayName = 'organisation';
         var billingEmail = 'org@test.com';
         var owners = ObjectId;
+        var members = ObjectId;
         var title = 'org name';
         var domain = 'org.orgDomain.com';
         var email = 'org@email.com';
@@ -55,7 +56,7 @@ describe('Organisation Queries', function () {
             mockgoose.reset();
             var testOrganisation = new Organisation({
                 displayName: displayName, billingEmail: billingEmail, owners: owners, title: title,
-                orgDomain: domain, email: email, photo: photo, folders: folders, teams: teams
+                orgDomain: domain, email: email, photo: photo, folders: folders, teams: teams, members: members
             });
             organisationCommand.createOrganisation(testOrganisation, function (err, result) {
                 organisation = result.organisation;
@@ -116,6 +117,7 @@ describe('Organisation Queries', function () {
         var displayName = 'organisation';
         var billingEmail = 'org@test.com';
         var owners = ObjectId;
+        var members = ObjectId;
         var title = 'org name';
         var domain = 'org.orgDomain.com';
         var email = 'org@email.com';
@@ -128,7 +130,7 @@ describe('Organisation Queries', function () {
             mockgoose.reset();
             var testOrganisation = new Organisation({
                 displayName: displayName, billingEmail: billingEmail, owners: owners, title: title,
-                orgDomain: domain, email: email, photo: photo, folders: folders, teams: teams
+                orgDomain: domain, email: email, photo: photo, folders: folders, teams: teams, members: members
             });
             organisationCommand.createOrganisation(testOrganisation, function (err, result) {
                 organisation = result.organisation;
@@ -152,6 +154,7 @@ describe('Organisation Queries', function () {
                 displayName: 'orgA',
                 billingEmail: 'orgA@org.org',
                 owners: ObjectId,
+                members: ObjectId,
                 title: 'Org A',
                 orgDomain: 'domainA',
                 email: 'emailA@email.com',
@@ -163,6 +166,7 @@ describe('Organisation Queries', function () {
                 displayName: 'orgB',
                 billingEmail: 'orgB@org.org',
                 owners: ObjectId,
+                members: ObjectId,
                 title: 'Org B',
                 orgDomain: 'domainB',
                 email: 'emailB@email.com',
@@ -174,6 +178,7 @@ describe('Organisation Queries', function () {
                 displayName: 'orgC',
                 billingEmail: 'orgC@org.org',
                 owners: ObjectId,
+                members: ObjectId,
                 title: 'Org C',
                 orgDomain: 'domainC',
                 email: 'emailC@email.com',

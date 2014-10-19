@@ -365,13 +365,14 @@ describe('Membership', function () {
     describe('organisation commands', function () {
         var displayName = 'organisation';
         var owners = ObjectId;
+        var members = ObjectId;
         var billingEmail = 'org@company.com';
 
         var organisation = {};
 
         beforeEach(function (done) {
             mockgoose.reset();
-            var testOrg = {owners: owners, displayName: displayName, billingEmail: billingEmail};
+            var testOrg = {owners: owners, displayName: displayName, billingEmail: billingEmail, members: members};
             membership.createOrganisation(testOrg, function (err, result) {
                 result.success.should.equal(true);
                 should.exist(result.organisation);
@@ -401,7 +402,6 @@ describe('Membership', function () {
             organisation._id = null;
             organisation.displayName = 'nonExistent';
             membership.deleteOrganisation(organisation, function (err, result) {
-                console.log(result);
                 result.success.should.equal(false);
                 result.message.should.equal('Organisation not deleted');
                 should.exist(result.err);
@@ -463,6 +463,7 @@ describe('Membership', function () {
     describe('organisation queries', function () {
         var displayName = 'organisation';
         var owners = ObjectId;
+        var members = ObjectId;
         var billingEmail = 'org@company.com';
         var invalidDisplayName = 'invalid';
         var invalidId = ObjectId;
@@ -471,8 +472,9 @@ describe('Membership', function () {
 
         before(function (done) {
             mockgoose.reset();
-            var testOrg = {owners: owners, displayName: displayName, billingEmail: billingEmail};
+            var testOrg = {owners: owners, displayName: displayName, billingEmail: billingEmail, members: members};
             membership.createOrganisation(testOrg, function (err, result) {
+                result.success.should.equal(true);
                 organisation = result.organisation;
                 done(err);
             });
