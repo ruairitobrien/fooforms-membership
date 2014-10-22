@@ -202,11 +202,12 @@ describe('Team Commands', function () {
         });
 
         it('successfully updates a team with valid values', function (done) {
-            teamCommand.updateTeam({_id: team._id, permissionLevel: 'read'}, function (err, result) {
+            teamCommand.updateTeam({_id: team._id, permissionLevel: 'read', folders: [ObjectId, ObjectId]}, function (err, result) {
                 (result.success).should.equal(true);
                 should.exist(result.team);
                 result.team.displayName.should.equal(name);
                 result.team.permissionLevel.should.equal('read');
+                result.folder.length.should.equal(2);
                 done(err);
             });
         });
