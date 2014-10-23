@@ -69,15 +69,12 @@ describe('Registration', function () {
             regResult.user.organisations.length.should.equal(1);
             regResult.user.organisations[0].should.eql(regResult.organisation._id);
         });
-        it('user is owner of organisation', function () {
+        it('user is owner and member of organisation', function () {
             regResult.user.teams.length.should.equal(2);
             should.exist(regResult.organisation.owners);
             should.exist(regResult.organisation.members);
             regResult.user.teams[0].should.eql(regResult.organisation.owners);
             regResult.user.teams[1].should.eql(regResult.organisation.members);
-        });
-        it('organisation has team called everyone by default', function () {
-           should.exist(regResult.organisation.members);
         });
     });
 

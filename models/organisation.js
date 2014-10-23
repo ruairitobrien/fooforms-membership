@@ -45,13 +45,11 @@ var organisationSchema = mongoose.Schema({
     // Creator is in this group by default but may allow addition of other users
     owners: {
         type: Schema.Types.ObjectId,
-        ref: 'Team',
-        required: true
+        ref: 'Team'
     },
     members: {
         type: Schema.Types.ObjectId,
-        ref: 'Team',
-        required: true
+        ref: 'Team'
     },
     // Teams collection to manage user groups
     teams: [

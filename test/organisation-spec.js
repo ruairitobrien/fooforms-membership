@@ -147,34 +147,6 @@ describe('Organisation', function () {
         });
     });
 
-    describe('initialising organisation with no owners', function () {
-        var organisation = {};
-
-        var displayName = 'organisation';
-        var billingEmail = 'org@test.com';
-
-
-        before(function () {
-            mockgoose.reset();
-            organisation = new Organisation({displayName: displayName,
-                billingEmail: billingEmail});
-        });
-
-        after(function () {
-            mockgoose.reset();
-        });
-
-        it('should not save and returns an error', function (done) {
-            organisation.save(function (err, savedOrganisation) {
-                should.exist(err);
-                should.not.exist(savedOrganisation);
-                err.errors.owners.path.should.equal('owners');
-                err.errors.owners.type.should.equal('required');
-                done();
-            });
-        });
-    });
-
     describe('initialising organisation with no displayName', function () {
         var organisation = {};
 

@@ -207,7 +207,7 @@ describe('Team Commands', function () {
                 should.exist(result.team);
                 result.team.displayName.should.equal(name);
                 result.team.permissionLevel.should.equal('read');
-                result.folder.length.should.equal(2);
+                result.team.folders.length.should.equal(2);
                 done(err);
             });
         });
