@@ -258,7 +258,10 @@ describe('Membership', function () {
         });
 
         it('successfully updates a user with valid values', function (done) {
-            membership.updateUser({displayName: displayName, teams: [ObjectId, ObjectId]}, function (err, result) {
+            var userToUpdate = user.toObject();
+            userToUpdate.teams = [ObjectId, ObjectId];
+
+            membership.updateUser(userToUpdate, function (err, result) {
                 (result.success).should.equal(true);
                 should.exist(result.user);
                 result.user.teams.length.should.equal(2);

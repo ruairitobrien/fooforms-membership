@@ -241,15 +241,6 @@ describe('User Commands', function () {
             });
         });
 
-        it('successfully updates a user with valid values', function (done) {
-            userCommand.updateUser({displayName: displayName, teams: [ObjectId, ObjectId]}, function (err, result) {
-                (result.success).should.equal(true);
-                should.exist(result.user);
-                result.user.teams.length.should.equal(2);
-                done(err);
-            });
-        });
-
         it('fails to update a user that does not exist', function (done) {
             userCommand.updateUser({teams: [ObjectId, ObjectId]}, function (err, result) {
                 (result.success).should.equal(false);
