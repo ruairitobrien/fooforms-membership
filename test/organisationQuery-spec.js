@@ -12,6 +12,7 @@ mockgoose(mongoose);
 var db = mongoose.connection;
 
 var Organisation = require('../models/organisation')(db);
+var Team = require('../models/team')(db);
 var OrganisationCommand = require('../lib/organisationCommand');
 var OrganisationQuery = require('../lib/organisationQuery');
 
@@ -33,15 +34,13 @@ describe('Organisation Queries', function () {
     // Happy path
     describe('finding a single organisation', function () {
 
-        var organisationCommand = new OrganisationCommand(Organisation);
+        var organisationCommand = new OrganisationCommand(Organisation, Team);
         var organisationQuery = new OrganisationQuery(Organisation);
 
         var organisation = {};
 
         var displayName = 'organisation';
         var billingEmail = 'org@test.com';
-        var owners = ObjectId;
-        var members = ObjectId;
         var title = 'org name';
         var domain = 'org.orgDomain.com';
         var email = 'org@email.com';
@@ -55,8 +54,8 @@ describe('Organisation Queries', function () {
         before(function (done) {
             mockgoose.reset();
             var testOrganisation = new Organisation({
-                displayName: displayName, billingEmail: billingEmail, owners: owners, title: title,
-                orgDomain: domain, email: email, photo: photo, folders: folders, teams: teams, members: members
+                displayName: displayName, billingEmail: billingEmail, title: title,
+                orgDomain: domain, email: email, photo: photo, folders: folders, teams: teams
             });
             organisationCommand.createOrganisation(testOrganisation, function (err, result) {
                 organisation = result.organisation;
@@ -109,15 +108,13 @@ describe('Organisation Queries', function () {
     });
 
     describe('finding a list of organisations', function () {
-        var organisationCommand = new OrganisationCommand(Organisation);
+        var organisationCommand = new OrganisationCommand(Organisation, Team);
         var organisationQuery = new OrganisationQuery(Organisation);
 
         var organisation = {};
 
         var displayName = 'organisation';
         var billingEmail = 'org@test.com';
-        var owners = ObjectId;
-        var members = ObjectId;
         var title = 'org name';
         var domain = 'org.orgDomain.com';
         var email = 'org@email.com';
@@ -129,8 +126,8 @@ describe('Organisation Queries', function () {
         before(function (done) {
             mockgoose.reset();
             var testOrganisation = new Organisation({
-                displayName: displayName, billingEmail: billingEmail, owners: owners, title: title,
-                orgDomain: domain, email: email, photo: photo, folders: folders, teams: teams, members: members
+                displayName: displayName, billingEmail: billingEmail, title: title,
+                orgDomain: domain, email: email, photo: photo, folders: folders, teams: teams
             });
             organisationCommand.createOrganisation(testOrganisation, function (err, result) {
                 organisation = result.organisation;
@@ -153,8 +150,6 @@ describe('Organisation Queries', function () {
             var testOrgA = {
                 displayName: 'orgA',
                 billingEmail: 'orgA@org.org',
-                owners: ObjectId,
-                members: ObjectId,
                 title: 'Org A',
                 orgDomain: 'domainA',
                 email: 'emailA@email.com',
@@ -165,8 +160,6 @@ describe('Organisation Queries', function () {
             var testOrgB = {
                 displayName: 'orgB',
                 billingEmail: 'orgB@org.org',
-                owners: ObjectId,
-                members: ObjectId,
                 title: 'Org B',
                 orgDomain: 'domainB',
                 email: 'emailB@email.com',
@@ -177,8 +170,6 @@ describe('Organisation Queries', function () {
             var testOrgC = {
                 displayName: 'orgC',
                 billingEmail: 'orgC@org.org',
-                owners: ObjectId,
-                members: ObjectId,
                 title: 'Org C',
                 orgDomain: 'domainC',
                 email: 'emailC@email.com',

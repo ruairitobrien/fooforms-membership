@@ -367,15 +367,13 @@ describe('Membership', function () {
 
     describe('organisation commands', function () {
         var displayName = 'organisation';
-        var owners = ObjectId;
-        var members = ObjectId;
         var billingEmail = 'org@company.com';
 
         var organisation = {};
 
         beforeEach(function (done) {
             mockgoose.reset();
-            var testOrg = {owners: owners, displayName: displayName, billingEmail: billingEmail, members: members};
+            var testOrg = {displayName: displayName, billingEmail: billingEmail};
             membership.createOrganisation(testOrg, function (err, result) {
                 result.success.should.equal(true);
                 should.exist(result.organisation);
@@ -416,7 +414,6 @@ describe('Membership', function () {
         it('successfully updates an organisation with valid values', function (done) {
             var displayNameUpdated = 'organisation_updated';
             var billingEmailUpdated = 'updatedorg@test.com';
-            var ownersUpdated = ObjectId;
             var titleUpdated = 'updated org name';
             var domainUpdated = 'updatedorg.orgDomain.com';
             var emailUpdated = 'updatedorg@email.com';
@@ -428,7 +425,6 @@ describe('Membership', function () {
                 _id: organisation._id,
                 displayName: displayNameUpdated,
                 billingEmail: billingEmailUpdated,
-                owners: ownersUpdated,
                 title: titleUpdated,
                 orgDomain: domainUpdated,
                 email: emailUpdated,
@@ -442,7 +438,8 @@ describe('Membership', function () {
                 should.exist(result.organisation);
                 result.organisation.displayName.should.equal(displayNameUpdated);
                 result.organisation.billingEmail.should.equal(billingEmailUpdated);
-                result.organisation.owners.should.eql(ownersUpdated);
+                should.exist(result.organisation.owners);
+                should.exist(result.organisation.members);
                 result.organisation.title.should.equal(titleUpdated);
                 result.organisation.orgDomain.should.equal(domainUpdated);
                 result.organisation.email.should.equal(emailUpdated);
@@ -465,8 +462,6 @@ describe('Membership', function () {
 
     describe('organisation queries', function () {
         var displayName = 'organisation';
-        var owners = ObjectId;
-        var members = ObjectId;
         var billingEmail = 'org@company.com';
         var invalidDisplayName = 'invalid';
         var invalidId = ObjectId;
@@ -475,7 +470,7 @@ describe('Membership', function () {
 
         before(function (done) {
             mockgoose.reset();
-            var testOrg = {owners: owners, displayName: displayName, billingEmail: billingEmail, members: members};
+            var testOrg = {displayName: displayName, billingEmail: billingEmail};
             membership.createOrganisation(testOrg, function (err, result) {
                 result.success.should.equal(true);
                 organisation = result.organisation;

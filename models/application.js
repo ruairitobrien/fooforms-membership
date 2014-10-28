@@ -14,8 +14,11 @@ var Application = function (args) {
     app.message = null;
     // The Mongoose User object when it gets created.
     app.user = null;
-    // The Mongoose Organisation object when it gets created.
-    app.organisation = null;
+    // The Mongoose Organisation object when it gets created or the orgID if this is an invite.
+    app.organisation = args.organisation || null;
+    // If the registration is by invitation the flow is a little different
+    app.isInvite = args.isInvite || false;
+
 
 
     app.isValid = function () {

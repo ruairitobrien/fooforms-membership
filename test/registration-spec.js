@@ -16,6 +16,7 @@ var Registration = require('../lib/registration');
 var User = require('../models/user')(db);
 var Organisation = require('../models/organisation')(db);
 var Team = require('../models/team')(db);
+var OrganisationCommand = require('../lib/organisationCommand');
 
 describe('Registration', function () {
 
@@ -31,8 +32,10 @@ describe('Registration', function () {
         before(function (done) {
             mockgoose.reset();
             var registration = new Registration(User, Organisation, Team);
-            registration.register({email: email, displayName: displayName,
-                    password: password, confirmPass: confirmPass, organisationName: organisationName},
+            registration.register({
+                    email: email, displayName: displayName,
+                    password: password, confirmPass: confirmPass, organisationName: organisationName
+                },
                 function (err, result) {
                     regResult = result;
                     done(err);
@@ -73,8 +76,82 @@ describe('Registration', function () {
             regResult.user.teams.length.should.equal(2);
             should.exist(regResult.organisation.owners);
             should.exist(regResult.organisation.members);
-            regResult.user.teams[0].should.eql(regResult.organisation.owners);
-            regResult.user.teams[1].should.eql(regResult.organisation.members);
+            regResult.user.teams[0].should.eql(regResult.organisation.owners._id);
+            regResult.user.teams[1].should.eql(regResult.organisation.members._id);
+            (!~regResult.organisation.owners.members.indexOf(regResult.user)).should.equal(true);
+            (!~regResult.organisation.members.members.indexOf(regResult.user)).should.equal(true);
+        });
+    });
+
+    describe('a valid invite', function () {
+        var regResult = {};
+        var displayName = 'name';
+        var email = 'user@test.com';
+        var password = 'pass';
+        var confirmPass = 'pass';
+        var organisation;
+        var organisationCommand = new OrganisationCommand(Organisation, Team);
+        var orgDisplayName = 'organisation';
+        var billingEmail = 'org@company.com';
+
+        before(function (done) {
+            mockgoose.reset();
+            var testOrg = {displayName: orgDisplayName, billingEmail: billingEmail};
+            organisationCommand.createOrganisation(testOrg, function (err, result) {
+                should.not.exist(err);
+                organisation = result.organisation;
+                var registration = new Registration(User, Organisation, Team);
+
+                registration.register({
+                        isInvite: true, email: email, displayName: displayName,
+                        password: password, confirmPass: confirmPass, organisation: organisation._id
+                    },
+                    function (err, result) {
+                        console.log(result);
+                        regResult = result;
+                        done(err);
+                    });
+            });
+
+
+        });
+
+        after(function () {
+            mockgoose.reset();
+        });
+
+        it('is successful', function () {
+            (regResult.success).should.equal(true);
+        });
+        it('creates a user', function () {
+            should.exist(regResult.user);
+        });
+        it('registered user has a sign in count of 1', function () {
+            regResult.user.signInCount.should.equal(1);
+        });
+        it('registered user last login date set', function () {
+            should.exist(regResult.user.lastLogin);
+        });
+        it('registered user has a salt', function () {
+            should.exist(regResult.user.salt);
+        });
+        it('registered user password is encrypted', function () {
+            // Bit of a rough check
+            regResult.user.password.should.not.equal(password);
+        });
+        it('result has a success message', function () {
+            regResult.message.should.equal('Successfully registered');
+        });
+        it('user has correct organisation', function () {
+            regResult.user.organisations.length.should.equal(1);
+            regResult.user.organisations[0].should.eql(regResult.organisation._id);
+        });
+        it('user is owner and member of organisation', function () {
+            regResult.user.teams.length.should.equal(1);
+            should.exist(regResult.organisation.owners);
+            should.exist(regResult.organisation.members);
+            regResult.user.teams[0].should.eql(regResult.organisation.members._id);
+            (!~regResult.organisation.members.members.indexOf(regResult.user)).should.equal(true);
         });
     });
 
@@ -95,8 +172,10 @@ describe('Registration', function () {
         });
 
         it('is not successful', function (done) {
-            registration.register({displayName: displayName,
-                    password: password, confirmPass: confirmPass, organisationName: organisationName},
+            registration.register({
+                    displayName: displayName,
+                    password: password, confirmPass: confirmPass, organisationName: organisationName
+                },
                 function (err, result) {
                     should.not.exist(err);
                     result.success.should.equal(false);
@@ -104,8 +183,10 @@ describe('Registration', function () {
                 });
         });
         it('tells the user that email is required when email is null', function (done) {
-            registration.register({displayName: displayName,
-                    password: password, confirmPass: confirmPass, organisationName: organisationName},
+            registration.register({
+                    displayName: displayName,
+                    password: password, confirmPass: confirmPass, organisationName: organisationName
+                },
                 function (err, result) {
                     should.not.exist(err);
                     result.message.should.equal('Email, username and password are required');
@@ -113,8 +194,10 @@ describe('Registration', function () {
                 });
         });
         it('tells the user that email is required when email is empty', function (done) {
-            registration.register({displayName: displayName,
-                    password: password, confirmPass: confirmPass, email: '', organisationName: organisationName},
+            registration.register({
+                    displayName: displayName,
+                    password: password, confirmPass: confirmPass, email: '', organisationName: organisationName
+                },
                 function (err, result) {
                     should.not.exist(err);
                     result.message.should.equal('Email, username and password are required');
@@ -165,9 +248,11 @@ describe('Registration', function () {
         before(function (done) {
             mockgoose.reset();
             var registration = new Registration(User, Organisation, Team);
-            registration.register({email: email, displayName: displayName,
+            registration.register({
+                    email: email, displayName: displayName,
                     password: password, confirmPass: confirmPass,
-                    organisationName: ''},
+                    organisationName: ''
+                },
                 function (err, result) {
                     regResult = result;
                     done(err);
@@ -203,8 +288,10 @@ describe('Registration', function () {
         before(function (done) {
             mockgoose.reset();
             var registration = new Registration(User, Organisation, Team);
-            registration.register({email: email, displayName: displayName,
-                    password: password, confirmPass: confirmPass, organisationName: organisationName},
+            registration.register({
+                    email: email, displayName: displayName,
+                    password: password, confirmPass: confirmPass, organisationName: organisationName
+                },
                 function (err, result) {
                     regResult = result;
                     done(err);
@@ -239,15 +326,19 @@ describe('Registration', function () {
         before(function (done) {
             mockgoose.reset();
             var registration = new Registration(User, Organisation, Team);
-            registration.register({email: email, displayName: displayName,
-                    password: password, confirmPass: confirmPass, organisationName: organisationName},
+            registration.register({
+                    email: email, displayName: displayName,
+                    password: password, confirmPass: confirmPass, organisationName: organisationName
+                },
                 function (err, result) {
                     if (err) {
                         done(err);
                     }
                     assert.ok(result.success);
-                    registration.register({email: email, displayName: displayName2,
-                            password: password, confirmPass: confirmPass, organisationName: organisationName2},
+                    registration.register({
+                            email: email, displayName: displayName2,
+                            password: password, confirmPass: confirmPass, organisationName: organisationName2
+                        },
                         function (err, result) {
                             regResult = result;
                             done(err);
@@ -283,15 +374,19 @@ describe('Registration', function () {
         before(function (done) {
             mockgoose.reset();
             var registration = new Registration(User, Organisation, Team);
-            registration.register({email: email, displayName: displayName,
-                    password: password, confirmPass: confirmPass, organisationName: organisationName},
+            registration.register({
+                    email: email, displayName: displayName,
+                    password: password, confirmPass: confirmPass, organisationName: organisationName
+                },
                 function (err, result) {
                     if (err) {
                         done(err);
                     }
                     assert.ok(result.success);
-                    registration.register({email: email2, displayName: displayName,
-                            password: password, confirmPass: confirmPass, organisationName: organisationName2},
+                    registration.register({
+                            email: email2, displayName: displayName,
+                            password: password, confirmPass: confirmPass, organisationName: organisationName2
+                        },
                         function (err, result) {
                             regResult = result;
                             done(err);
@@ -327,15 +422,19 @@ describe('Registration', function () {
         before(function (done) {
             mockgoose.reset();
             var registration = new Registration(User, Organisation, Team);
-            registration.register({email: email, displayName: displayName,
-                    password: password, confirmPass: confirmPass, organisationName: organisationName},
+            registration.register({
+                    email: email, displayName: displayName,
+                    password: password, confirmPass: confirmPass, organisationName: organisationName
+                },
                 function (err, result) {
                     if (err) {
                         done(err);
                     }
                     assert.ok(result.success);
-                    registration.register({email: email2, displayName: displayName2,
-                            password: password, confirmPass: confirmPass, organisationName: organisationName},
+                    registration.register({
+                            email: email2, displayName: displayName2,
+                            password: password, confirmPass: confirmPass, organisationName: organisationName
+                        },
                         function (err, result) {
                             regResult = result;
                             done(err);
@@ -376,8 +475,10 @@ describe('Registration', function () {
         before(function (done) {
             mockgoose.reset();
             registration = new Registration(User, Organisation, Team);
-            registration.register({email: email, displayName: displayName,
-                    password: password, confirmPass: confirmPass, organisationName: organisationName},
+            registration.register({
+                    email: email, displayName: displayName,
+                    password: password, confirmPass: confirmPass, organisationName: organisationName
+                },
                 function (err, result) {
                     assert.ok(result.success);
                     regResult = result;

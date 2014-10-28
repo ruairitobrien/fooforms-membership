@@ -177,17 +177,17 @@ var Membership = function (dbConnection) {
      * ORGANISATION COMMANDS
      */
     self.createOrganisation = function (args, next) {
-        var organisationCommand = new OrganisationCommand(Organisation);
+        var organisationCommand = new OrganisationCommand(Organisation, Team);
         organisationCommand.createOrganisation(args, next);
     };
 
     self.updateOrganisation = function (args, next) {
-        var organisationCommand = new OrganisationCommand(Organisation);
+        var organisationCommand = new OrganisationCommand(Organisation, Team);
         organisationCommand.updateOrganisation(args, next);
     };
 
     self.deleteOrganisation = function (args, next) {
-        var organisationCommand = new OrganisationCommand(Organisation);
+        var organisationCommand = new OrganisationCommand(Organisation, Team);
         organisationCommand.deleteOrganisation(args, next);
     };
 
