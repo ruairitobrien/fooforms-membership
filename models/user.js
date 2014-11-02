@@ -95,27 +95,6 @@ var userSchema = mongoose.Schema({
     }
 });
 
-userSchema.path('email').validate(function (email) {
-    if (authTypes.indexOf(this.provider) !== -1) {
-        return true;
-    }
-    return email.length;
-}, 'Email cannot be blank');
-
-userSchema.path('displayName').validate(function (displayName) {
-    if (authTypes.indexOf(this.provider) !== -1) {
-        return true;
-    }
-    return displayName.length;
-}, 'Username cannot be blank');
-
-userSchema.path('password').validate(function (password) {
-    if (authTypes.indexOf(this.provider) !== -1) {
-        return true;
-    }
-    return password && password.length;
-}, 'Password cannot be blank');
-
 /**
  * Checks if a value is null or empty
  * @param value
@@ -124,6 +103,27 @@ userSchema.path('password').validate(function (password) {
 var notNullOrEmpty = function (value) {
     return value && value.length;
 };
+
+userSchema.path('email').validate(function (email) {
+    if (authTypes.indexOf(this.provider) !== -1) {
+        return true;
+    }
+    return notNullOrEmpty(email);
+}, 'Email cannot be blank');
+
+userSchema.path('displayName').validate(function (displayName) {
+    if (authTypes.indexOf(this.provider) !== -1) {
+        return true;
+    }
+    return notNullOrEmpty(displayName);
+}, 'Username cannot be blank');
+
+userSchema.path('password').validate(function (password) {
+    if (authTypes.indexOf(this.provider) !== -1) {
+        return true;
+    }
+    return notNullOrEmpty(password);
+}, 'Password cannot be blank');
 
 /**
  * Pre-save hook
