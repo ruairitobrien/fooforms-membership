@@ -107,7 +107,6 @@ describe('Registration', function () {
                         password: password, confirmPass: confirmPass, organisation: organisation._id
                     },
                     function (err, result) {
-                        console.log(result);
                         regResult = result;
                         done(err);
                     });
@@ -177,9 +176,8 @@ describe('Registration', function () {
                     password: password, confirmPass: confirmPass, organisationName: organisationName
                 },
                 function (err, result) {
-                    should.not.exist(err);
                     result.success.should.equal(false);
-                    done();
+                    done(err);
                 });
         });
         it('tells the user that email is required when email is null', function (done) {
@@ -188,9 +186,8 @@ describe('Registration', function () {
                     password: password, confirmPass: confirmPass, organisationName: organisationName
                 },
                 function (err, result) {
-                    should.not.exist(err);
                     result.message.should.equal('Email, username and password are required');
-                    done();
+                    done(err);
                 });
         });
         it('tells the user that email is required when email is empty', function (done) {
@@ -199,9 +196,8 @@ describe('Registration', function () {
                     password: password, confirmPass: confirmPass, email: '', organisationName: organisationName
                 },
                 function (err, result) {
-                    should.not.exist(err);
                     result.message.should.equal('Email, username and password are required');
-                    done();
+                    done(err);
                 });
         });
     });
@@ -333,16 +329,17 @@ describe('Registration', function () {
                 function (err, result) {
                     if (err) {
                         done(err);
+                    } else {
+                        assert.ok(result.success);
+                        registration.register({
+                                email: email, displayName: displayName2,
+                                password: password, confirmPass: confirmPass, organisationName: organisationName2
+                            },
+                            function (err, result) {
+                                regResult = result;
+                                done(err);
+                            });
                     }
-                    assert.ok(result.success);
-                    registration.register({
-                            email: email, displayName: displayName2,
-                            password: password, confirmPass: confirmPass, organisationName: organisationName2
-                        },
-                        function (err, result) {
-                            regResult = result;
-                            done(err);
-                        });
                 });
         });
 
@@ -381,16 +378,17 @@ describe('Registration', function () {
                 function (err, result) {
                     if (err) {
                         done(err);
+                    } else {
+                        assert.ok(result.success);
+                        registration.register({
+                                email: email2, displayName: displayName,
+                                password: password, confirmPass: confirmPass, organisationName: organisationName2
+                            },
+                            function (err, result) {
+                                regResult = result;
+                                done(err);
+                            });
                     }
-                    assert.ok(result.success);
-                    registration.register({
-                            email: email2, displayName: displayName,
-                            password: password, confirmPass: confirmPass, organisationName: organisationName2
-                        },
-                        function (err, result) {
-                            regResult = result;
-                            done(err);
-                        });
                 });
         });
 
@@ -429,16 +427,17 @@ describe('Registration', function () {
                 function (err, result) {
                     if (err) {
                         done(err);
+                    } else {
+                        assert.ok(result.success);
+                        registration.register({
+                                email: email2, displayName: displayName2,
+                                password: password, confirmPass: confirmPass, organisationName: organisationName
+                            },
+                            function (err, result) {
+                                regResult = result;
+                                done(err);
+                            });
                     }
-                    assert.ok(result.success);
-                    registration.register({
-                            email: email2, displayName: displayName2,
-                            password: password, confirmPass: confirmPass, organisationName: organisationName
-                        },
-                        function (err, result) {
-                            regResult = result;
-                            done(err);
-                        });
                 });
         });
 
@@ -516,4 +515,10 @@ describe('Registration', function () {
         });
 
     });
+
+    describe('rollback on error', function () {
+        it('should delete everything when an error occurs', function () {
+            // TODO: No idea how to test this here
+        })
+    })
 });

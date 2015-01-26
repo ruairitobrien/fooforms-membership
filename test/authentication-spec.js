@@ -34,6 +34,7 @@ describe('Authentication', function () {
         registration.register({email: email, displayName: displayName,
                 password: password, confirmPass: confirmPass, organisationName: organisationName},
             function (err, result) {
+                console.log(result);
                 assert.ok(result.success);
                 done(err);
             });

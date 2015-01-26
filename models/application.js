@@ -25,9 +25,12 @@ var Application = function (args) {
         return app.status === 'validated';
     };
 
-    app.setInvalid = function (message) {
+    app.setInvalid = function (message, err) {
         app.status = 'invalid';
         if(message) {app.message = message;}
+        if (err) {
+            app.err = err;
+        }
     };
 
     app.validate = function () {
