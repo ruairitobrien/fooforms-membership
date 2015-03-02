@@ -170,7 +170,11 @@ var Membership = function (dbConnection) {
      * TEAM QUERIES
      */
     self.findTeamById = function (id, next) {
-      _teamQuery.findTeamById(id, next);
+        _teamQuery.findTeamById(id, next);
+    };
+
+    self.searchTeams = function (query, next) {
+        _teamQuery.search(query, next);
     };
 
     /*******************************************************************************************************************
