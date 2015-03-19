@@ -92,7 +92,9 @@ var userSchema = mongoose.Schema({
     deleted: {
         type: Boolean,
         default: false
-    }
+    },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 });
 
 /**
