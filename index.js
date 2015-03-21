@@ -12,6 +12,8 @@ var OrganisationCommand = require('./lib/organisationCommand');
 var TeamQuery = require('./lib/teamQuery');
 var TeamCommand = require('./lib/teamCommand');
 
+var passwordUtil = require('./lib/passwordUtil');
+
 var Membership = function (dbConnection) {
     Emitter.call(this);
     var self = this;
@@ -210,6 +212,10 @@ var Membership = function (dbConnection) {
         _organisationQuery.searchOrganisations(query, next);
     };
 
+    /*******************************************************************************************************************
+     * PASSWORD
+     */
+    self.passwordUtil = passwordUtil;
 };
 
 util.inherits(Membership, Emitter);
