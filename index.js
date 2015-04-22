@@ -11,7 +11,8 @@ var OrganisationQuery = require('./lib/organisationQuery');
 var OrganisationCommand = require('./lib/organisationCommand');
 var TeamQuery = require('./lib/teamQuery');
 var TeamCommand = require('./lib/teamCommand');
-
+var InviteQuery = require('./lib/inviteQuery');
+var InviteCommand = require('./lib/inviteCommand');
 var passwordUtil = require('./lib/passwordUtil');
 
 var Membership = function (dbConnection) {
@@ -21,10 +22,12 @@ var Membership = function (dbConnection) {
     var User = require('./models/user')(dbConnection);
     var Organisation = require('./models/organisation')(dbConnection);
     var Team = require('./models/team')(dbConnection);
+    var Invite = require('./models/invite')(dbConnection);
 
     var _userQuery = new UserQuery(User);
     var _organisationQuery = new OrganisationQuery(Organisation);
     var _teamQuery = new TeamQuery(Team);
+    var _inviteQuery = new InviteQuery(Invite);
 
     var eventTypes = {
         authenticated: 'authenticated',
@@ -210,6 +213,13 @@ var Membership = function (dbConnection) {
 
     self.searchOrganisations = function (query, next) {
         _organisationQuery.searchOrganisations(query, next);
+    };
+
+    /*******************************************************************************************************************
+     * INVITE QUERIES
+     */
+    self.findInviteById = function (id, next) {
+
     };
 
     /*******************************************************************************************************************
