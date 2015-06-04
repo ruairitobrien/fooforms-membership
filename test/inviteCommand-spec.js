@@ -278,7 +278,6 @@ describe('Invite Commands', function () {
                 invite.email.should.equal(email);
                 invite.organisation.should.eql(organisation);
                 invite.status.should.equal('pending');
-                invite.status.should.equal('pending');
                 invite.maxTimesUsed.should.equal(1);
                 invite.inviteType.should.equal('Single');
                 (result.success).should.equal(true);
@@ -286,7 +285,6 @@ describe('Invite Commands', function () {
 
                 done(err);
             });
-
         });
 
         it('fails if organisation is not provided', function (done) {
@@ -327,6 +325,7 @@ describe('Invite Commands', function () {
                 done();
             });
         });
+
         it('fails if organisation is not a valid mongo id', function (done) {
             var organisation = 'blaaaaa';
             var inviter = ObjectId;
@@ -371,6 +370,26 @@ describe('Invite Commands', function () {
                 done();
             });
         });
+    });
+
+    describe('creating an open invite', function () {
+        var organisation = ObjectId;
+        var inviter = ObjectId;
+
+        it('is successful with the correct values provided', function (done) {
+            var invite = {organisation: organisation, inviter: inviter};
+
+            inviteCommand.createOpenInvite(invite, function (err, result) {
+                should.not.exist(err);
+                result.success.should.equal(true);
+                console.log(JSON.stringify(result, null, 4));
+                var invite = result.entity;
+                should.exist(invite);
+                invite.inviteType.should.equal('Open');
+                done(err);
+            });
+        });
+
     });
 
 });

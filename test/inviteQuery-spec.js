@@ -37,7 +37,6 @@ describe('Invite Queries', function () {
             mockgoose.reset();
             var testInvite = new Invite({organisation: ObjectId});
             inviteCommand.create(testInvite, function (err, result) {
-                console.log(JSON.stringify(result, null, 4));
                 invite = result.entity;
                 done(err);
             });
@@ -46,6 +45,7 @@ describe('Invite Queries', function () {
 
         it('finds an invite by id ', function (done) {
             inviteQuery.findById(invite._id, function (err, result) {
+                should.exist(result.data);
                 done(err);
             });
         });

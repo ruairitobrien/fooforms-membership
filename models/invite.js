@@ -49,15 +49,21 @@ var inviteSchema = new Schema({
 });
 
 inviteSchema.pre('validate', function (next) {
+    var err;
     if (this.inviteType === 'Single') {
         if (!this.email || !(this.email.length > 1)) {
-            return next(new Error('An email must be provided for a Single invite'));
+            err = new Error('An email must be provided for a Single invite');
         }
         if (this.maxTimesUsed !== 1) {
-            return next(new Error('A single invite must have a max times used of 1'));
+            err = new Error('A single invite must have a max times used of 1');
         }
+    } else if (this.inviteType === 'Open') {
+        // TODO: what to validate?
+    } else {
+        err = new Error('Unknown invite type');
     }
-    return next();
+
+    return next(err);
 
 });
 
