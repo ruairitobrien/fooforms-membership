@@ -170,7 +170,6 @@ var Membership = function (dbConnection) {
     };
 
 
-
     /*******************************************************************************************************************
      * TEAM QUERIES
      */
@@ -216,10 +215,33 @@ var Membership = function (dbConnection) {
     };
 
     /*******************************************************************************************************************
+     * INVITE COMMANDS
+     */
+    self.createOneOffInvite = function (args, next) {
+        var inviteCommand = new InviteCommand(Invite);
+        inviteCommand.createOneOffInvite(args, next);
+    };
+
+    self.createOpenInvite = function (args, next) {
+        var inviteCommand = new InviteCommand(Invite);
+        inviteCommand.createOpenInvite(args, next);
+    };
+
+    self.updateInvite = function (args, next) {
+        var inviteCommand = new InviteCommand(Invite);
+        inviteCommand.update(args, next);
+    };
+
+    self.removeInvite = function (args, next) {
+        var inviteCommand = new InviteCommand(Invite);
+        inviteCommand.remove(args, next);
+    };
+
+    /*******************************************************************************************************************
      * INVITE QUERIES
      */
     self.findInviteById = function (id, next) {
-
+        _inviteQuery.findById(id, next);
     };
 
     /*******************************************************************************************************************
