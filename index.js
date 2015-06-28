@@ -45,6 +45,7 @@ var Membership = function (dbConnection) {
     self.User = User;
     self.Organisation = Organisation;
     self.Team = Team;
+    self.Invite = Invite;
 
 
     /**
